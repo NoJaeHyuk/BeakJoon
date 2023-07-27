@@ -13,18 +13,16 @@ public class Main {
         long[] ary = new long[N];
         long left = 0;
         long right = 0;
-        long sum = 0;
 
         StringTokenizer st = new StringTokenizer(br.readLine());
         for(int i=0; i<N; i++){
             ary[i] = Integer.parseInt(st.nextToken());
-            sum += ary[i];
             right = Math.max(ary[i],right);
         }
 
         int total = Integer.parseInt(br.readLine());
 
-        if(sum > total){
+        
             while (left <= right){
                 long mid = (left+right)/2; // 세금의 상환선
                 long result = 0;
@@ -43,10 +41,6 @@ public class Main {
                     right = mid-1;
                 }
             }
-            System.out.println(right);
-        }else{
-            System.out.println(right);
-        }
-
+            System.out.println(max);
     }
 }
