@@ -1,50 +1,59 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
- 
-public class Main {    
-    
-    static int n;
-    static ArrayList<Integer>[] list;
+
+public class Main {
     static boolean[] visited;
-    
-    public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
-        
-        int n = scan.nextInt();
-        int m = scan.nextInt();
-        
-        list = new ArrayList[n];
-        for(int i = 0; i < n; i++) {
-            list[i] = new ArrayList<>();
+    static int N;
+    static int M;
+    static List<Integer>[] arrList;
+    static int result = 0; // 정답 여부
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
+
+        arrList = new ArrayList[N];
+
+        for (int i = 0; i < N; i++) {
+            arrList[i] = new ArrayList<>();
         }
-        
-        for(int i = 0; i < m; i++) {
-            int a = scan.nextInt();
-            int b = scan.nextInt();
-            list[a].add(b);
-            list[b].add(a);
+
+        for (int i = 0; i < M; i++) {
+            st = new StringTokenizer(br.readLine());
+            int a = Integer.parseInt(st.nextToken());
+            int b = Integer.parseInt(st.nextToken());
+            arrList[a].add(b);
+            arrList[b].add(a);
         }
-        
-        for(int i = 0; i < n; i++) {
-            visited = new boolean[n];
-            dfs(i, 0);
-        }
-        System.out.println(0);
-    }
-    
-    public static void dfs(int x, int len) {
-        if(len == 4) {
-            System.out.println(1);
-            System.exit(0);
-        }
-        
-        visited[x] = true;
-        for(int i = 0; i < list[x].size(); i++) {
-            int temp = list[x].get(i);
-            if(visited[temp] == false) {
-                visited[temp] = true;
-                dfs(temp, len + 1);
-                visited[temp] = false;
+
+        for(int i = 0; i < N; i++) {
+            visited = new boolean[N];
+            solution(i, 0);
+            if(result == 1) {
+                break;
             }
         }
+
+        System.out.println(result);
+    }
+
+    public static void solution(int x,int count){
+        if(count == 4) {
+            result = 1;
+            return;
+        }
+
+        visited[x] = true;
+        for(int nxt : arrList[x]) {
+            if(!visited[nxt]) {
+                solution(nxt, count + 1);
+            }
+        }
+        visited[x] = false;
     }
 }
