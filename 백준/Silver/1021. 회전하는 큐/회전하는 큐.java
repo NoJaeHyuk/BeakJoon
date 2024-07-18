@@ -1,5 +1,3 @@
-
-
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -29,8 +27,15 @@ public class Main {
         int count = 0;
 
         for (int num : array) {
+            int half_idx;
+            if (deque.size() % 2 == 0) {
+                half_idx = deque.size() / 2 - 1;
+            } else {
+                half_idx = deque.size() / 2;
+            }
+            
             while (deque.peek() != num) {
-                if (deque.indexOf(num) <= deque.size() / 2) {
+                if (deque.indexOf(num) <= half_idx) {
                     Integer pollFirst = deque.pollFirst();
                     deque.add(pollFirst);
                     count++;
