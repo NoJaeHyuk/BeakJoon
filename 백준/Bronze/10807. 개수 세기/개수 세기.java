@@ -1,27 +1,24 @@
-
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
 
-        Scanner sc = new Scanner(System.in);
-
-        int count = 0;						 // b 와 일치할시 갯수를 올리는 변수
-        int N = sc.nextInt();
-        int[] arr = new int[N];				 // 배열 생성, 길이는 N만큼
-
-        for(int i = 0; i < N; i++) {
-            arr[i] = sc.nextInt();			 // 배열에 입력한 정수들 넣어주기
+        int n = scanner.nextInt();
+        
+        int[] numbers = new int[n];
+        for (int i = 0; i < n; i++) {
+            numbers[i] = scanner.nextInt();
         }
-        int b = sc.nextInt();
-
-        for(int j=0; j< arr.length; j++){
-            if(b == arr[j]){
-                count++;
-            }
+        
+        int m = scanner.nextInt();
+        
+        Map<Integer, Integer> countMap = new HashMap<>();
+        
+        for (int num : numbers) {
+           countMap.put(num, countMap.getOrDefault(num, 0) + 1);
         }
-
-        System.out.println(count);
-
+        
+        System.out.println(countMap.getOrDefault(m, 0));
     }
 }
