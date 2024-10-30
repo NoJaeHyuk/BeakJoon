@@ -5,27 +5,25 @@ class Solution {
         int xCount = 1;
         int xNotCount = 0;
         
-        for (int i = 1; i < s.length(); i++) {
-            if (xCount == 0 && xNotCount == 0) {
-                x = s.charAt(i);
-                xCount = 1;
-                continue;
+        int balance = 0;
+        
+        for(char c : s.toCharArray()) {
+            if(balance == 0){
+                x = c;
             }
             
-            if (x == s.charAt(i)) {
-                xCount++;
-            } else {
-                xNotCount++;
+            if(x == c){
+                balance++;
+            }else {
+                balance--;
             }
             
-            if (xCount == xNotCount) {
+            if(balance == 0) {
                 answer++;
-                xCount = 0;
-                xNotCount = 0;
             }
         }
         
-        if (xCount != 0 || xNotCount != 0) { // 남은 문자열이 있다면 answer 추가
+        if(balance != 0){
             answer++;
         }
         
