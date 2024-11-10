@@ -18,40 +18,46 @@ public class Main {
             StringTokenizer st = new StringTokenizer(br.readLine());
             String command = st.nextToken();
 
-            switch (command) {
-                case "push":
-                    lastElement = Integer.parseInt(st.nextToken());
-                    queue.add(lastElement);
-                    break;
-                case "pop":
-                    if (queue.isEmpty()) {
-                        sb.append("-1\n");
-                    } else {
-                        sb.append(queue.poll()).append("\n");
-                    }
-                    break;
-                case "size":
-                    sb.append(queue.size()).append("\n");
-                    break;
-                case "empty":
-                    sb.append(queue.isEmpty() ? "1\n" : "0\n");
-                    break;
-                case "front":
-                    if (queue.isEmpty()) {
-                        sb.append("-1\n");
-                    } else {
-                        sb.append(queue.peek()).append("\n");
-                    }
-                    break;
-                case "back":
-                    if (queue.isEmpty()) {
-                        sb.append("-1\n");
-                    } else {
-                        sb.append(lastElement).append("\n");
-                    }
-                    break;
+            if (command.equals("push")) {
+                lastElement = Integer.parseInt(st.nextToken());
+                queue.add(lastElement);
+            } else {
+                queuePrint(command, queue, lastElement, sb);
             }
         }
-        System.out.print(sb);
+
+        System.out.print(sb);  // 최종적으로 StringBuilder에 저장된 결과를 출력
+    }
+
+    public static void queuePrint(String command, Queue<Integer> queue, int lastElement, StringBuilder sb) {
+        switch (command) {
+            case "pop":
+                if (queue.isEmpty()) {
+                    sb.append("-1\n");
+                } else {
+                    sb.append(queue.poll()).append("\n");
+                }
+                break;
+            case "size":
+                sb.append(queue.size()).append("\n");
+                break;
+            case "empty":
+                sb.append(queue.isEmpty() ? "1\n" : "0\n");
+                break;
+            case "front":
+                if (queue.isEmpty()) {
+                    sb.append("-1\n");
+                } else {
+                    sb.append(queue.peek()).append("\n");
+                }
+                break;
+            case "back":
+                if (queue.isEmpty()) {
+                    sb.append("-1\n");
+                } else {
+                    sb.append(lastElement).append("\n");
+                }
+                break;
+        }
     }
 }
