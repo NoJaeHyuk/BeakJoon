@@ -9,10 +9,10 @@ public class Main {
 
         int sum = 0;
         for (String input : inputs) {
-            sum += Math.pow(Double.parseDouble(input), 2 );
+            int num = Integer.parseInt(input);
+            sum += num * num;  // 제곱을 더하기
         }
-        
-        int remain = sum % 10;
-        System.out.println(remain);
+
+        System.out.println(sum % 10);
     }
 }
