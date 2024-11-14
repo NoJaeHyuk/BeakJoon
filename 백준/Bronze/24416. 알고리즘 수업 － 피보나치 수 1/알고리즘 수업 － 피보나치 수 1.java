@@ -1,44 +1,41 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Main {
-    static long dp[];
-    static int c1 = 0;
-    static int c2 = 0;
+    static int C1 = 0;
+    static int C2 = 0;
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
-        int n = sc.nextInt();
-
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.parseInt(br.readLine());
         fib(n);
-
-        dp = new long[n+1];
-
-        dp[1] = 1;
-        dp[2] = 1;
-
         fibonacci(n);
-
-        System.out.println(c1+" "+c2);
-
+        System.out.println(C1 + " " + C2);
     }
 
-    public static long fib(int n){
-        if(n == 1 || n == 2){
-            c1++;
+    public static int fib(int n) {
+        if (n == 1 || n == 2) {
+            C1++;
+            return 1;
+        } else {
+            return (fib(n - 1) + fib(n - 2));
+        }
+    }
+
+    public static int fibonacci(int n) {
+        if (n == 1 || n == 2) {
             return 1;
         }
 
-        return fib(n-1) + fib(n-2);
-    }
+        int[] f = new int[n + 1];
+        f[1] = f[2] = 1;
 
-    public static long fibonacci(int n){
-
-        for(int i=3; i<=n; i++){
-            c2++;
-            dp[i] = dp[i-2] + dp[i-1];
+        for (int i = 3; i <= n; i++) {
+            f[i] = f[i - 1] + f[i - 2];
+            C2++;
         }
 
-        return dp[n];
+        return f[n];
     }
 }
