@@ -8,19 +8,18 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
 
-        StringBuilder sb = new StringBuilder();
+        StringBuilder result = new StringBuilder();
         for (int i = 0; i < n; i++) {
             StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-            int count = Integer.parseInt(st.nextToken());
-            String text = st.nextToken();
+            int repeatCount = Integer.parseInt(st.nextToken());
+            String inputString = st.nextToken();
 
-            for(char ch : text.toCharArray()) {
-                String str = String.valueOf(ch);
-                sb.append(str.repeat(count));
+            for(char ch : inputString.toCharArray()) {
+                result.append(String.valueOf(ch).repeat(repeatCount));
             }
-            sb.append("\n");
+            result.append("\n");
         }
 
-        System.out.println(sb.toString());
+        System.out.println(result);
     }
 }
