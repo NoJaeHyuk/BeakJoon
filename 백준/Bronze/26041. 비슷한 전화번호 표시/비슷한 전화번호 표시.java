@@ -5,19 +5,14 @@ import java.io.InputStreamReader;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String[] split = br.readLine().split(" ");
-        String line = br.readLine();
+        String[] words = br.readLine().split(" ");
+        String target = br.readLine();
 
         int count = 0;
 
-        for (String str : split) {
-            if (str.equals(line)) {
-                continue;
-            }
-            if (str.contains(line)) {
-                if (str.substring(0, line.length()).equals(line)) {
-                    count++;
-                }
+        for (String word : words) {
+            if(!word.equals(target) && word.startsWith(target)) {
+                count++;
             }
         }
 
