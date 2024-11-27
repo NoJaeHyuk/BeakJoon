@@ -15,37 +15,43 @@ public class Main {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < n; i++) {
             StringTokenizer st = new StringTokenizer(br.readLine());
-
             String command = st.nextToken();
 
-            if (deque.isEmpty() && !command.equals("size")) {
-                if (command.equals("pop_front") || command.equals("pop_back") || command.equals("front")
-                    || command.equals("back")) {
-                    System.out.println(-1);
-                    continue;
-                } else if (command.equals("empty")) {
-                    System.out.println(1);
-                    continue;
-                }
-            }
+            switch (command) {
+                case "push_front":
+                    deque.addFirst(st.nextToken());
+                    break;
 
-            if (command.equals("push_front")) {
-                deque.addFirst(st.nextToken());
-            } else if (command.equals("push_back")) {
-                deque.addLast(st.nextToken());
-            } else if (command.equals("pop_front")) {
-                System.out.println(deque.pollFirst());
-            } else if (command.equals("pop_back")) {
-                System.out.println(deque.pollLast());
-            } else if (command.equals("size")) {
-                System.out.println(deque.size());
-            } else if (command.equals("empty")) {
-                System.out.println(0);
-            } else if (command.equals("front")) {
-                System.out.println(deque.peekFirst());
-            } else if (command.equals("back")) {
-                System.out.println(deque.peekLast());
+                case "push_back":
+                    deque.addLast(st.nextToken());
+                    break;
+
+                case "pop_front":
+                    sb.append(deque.isEmpty() ? -1 : deque.pollFirst()).append("\n");
+                    break;
+
+                case "pop_back":
+                    sb.append(deque.isEmpty() ? -1 : deque.pollLast()).append("\n");
+                    break;
+
+                case "size":
+                    sb.append(deque.size()).append("\n");
+                    break;
+
+                case "empty":
+                    sb.append(deque.isEmpty() ? 1 : 0).append("\n");
+                    break;
+
+                case "front":
+                    sb.append(deque.isEmpty() ? -1 : deque.peekFirst()).append("\n");
+                    break;
+
+                case "back":
+                    sb.append(deque.isEmpty() ? -1 : deque.peekLast()).append("\n");
+                    break;
             }
         }
+        // 모든 출력 결과 한 번에 출력
+        System.out.print(sb);
     }
 }
