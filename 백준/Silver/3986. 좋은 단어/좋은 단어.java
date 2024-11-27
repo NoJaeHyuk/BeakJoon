@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Stack;
 
+
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -14,22 +15,22 @@ public class Main {
 
             Stack<Character> stack = new Stack<>();
             for (char ch : word.toCharArray()) {
-                if (stack.isEmpty()) {
+                if (stack.isEmpty() || stack.peek() != ch) {
                     stack.push(ch);
-                } else {
-                    if (stack.peek() == ch) {
-                        stack.pop();
-                    } else {
-                        stack.push(ch);
-                    }
+                    continue;
                 }
+                stack.pop();
             }
 
-            if (stack.isEmpty()) {
+            if (isGoodWord(stack)) {
                 count++;
             }
         }
 
         System.out.println(count);
+    }
+
+    private static boolean isGoodWord(Stack<Character> stack) {
+        return stack.isEmpty();
     }
 }
