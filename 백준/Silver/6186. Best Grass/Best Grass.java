@@ -4,15 +4,21 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
+    private static Character[][] arr;
+    private static boolean[][] visited;
+    private static int[] dx = {-1, 1, 0, 0}; // 상하좌우
+    private static int[] dy = {0, 0, -1, 1}; // 상하좌우
+    private static int R, C; // 행, 열 크기
+    
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
-        int R = Integer.parseInt(st.nextToken());
-        int C = Integer.parseInt(st.nextToken());
+        R = Integer.parseInt(st.nextToken());
+        C = Integer.parseInt(st.nextToken());
 
-        Character[][] arr = new Character[R][C];
-        boolean[][] visited = new boolean[R][C];
+        arr = new Character[R][C];
+        visited = new boolean[R][C];
 
         for (int i = 0; i < R; i++) {
             String line = br.readLine();
@@ -21,16 +27,12 @@ public class Main {
             }
         }
 
-        // 상하좌우 이동을 위한 dx, dy 배열
-        int[] dx = {-1, 1, 0, 0};
-        int[] dy = {0, 0, -1, 1};
-
         int grassCount = 0;
 
         for (int i = 0; i < R; i++) {
             for (int j = 0; j < C; j++) {
                 if (arr[i][j] == '#' && !visited[i][j]) {
-                    dfs(i, j, arr, visited, dx, dy, R, C);
+                    dfs(i, j);
                     grassCount++;
                 }
             }
@@ -40,7 +42,7 @@ public class Main {
     }
 
     // DFS 메서드
-    private static void dfs(int x, int y, Character[][] arr, boolean[][] visited, int[] dx, int[] dy, int R, int C) {
+    private static void dfs(int x, int y) {
         visited[x][y] = true;
 
         for (int dir = 0; dir < 4; dir++) {
@@ -49,7 +51,7 @@ public class Main {
 
             // 배열 범위를 벗어나지 않고, 방문하지 않았으며, '#'인 경우
             if (nx >= 0 && nx < R && ny >= 0 && ny < C && arr[nx][ny] == '#' && !visited[nx][ny]) {
-                dfs(nx, ny, arr, visited, dx, dy, R, C);
+                dfs(nx, ny);
             }
         }
     }
