@@ -5,7 +5,7 @@ import java.util.StringTokenizer;
 
 public class Main {
     private static int n, m;
-    private static Character[][] arr;
+    private static char[][] arr;
     private static boolean[][] visited;
 
     public static void main(String[] args) throws IOException {
@@ -15,27 +15,19 @@ public class Main {
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
 
-        arr = new Character[n][m];
+        arr = new char[n][m];
         visited = new boolean[n][m];
 
         for (int i = 0; i < n; i++) {
-            String line = br.readLine();
-            for (int j = 0; j < m; j++) {
-                arr[i][j] = line.charAt(j);
-            }
+            arr[i] = br.readLine().toCharArray();
         }
 
         int count = 0;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 if (!visited[i][j]) {
-                    if (arr[i][j] == '-') {
-                        dfs(i, j);
-                        count++;
-                    } else {
-                        dfs1(i, j);
-                        count++;
-                    }
+                    dfs(i, j, arr[i][j]);
+                    count++;
                 }
             }
         }
@@ -43,25 +35,22 @@ public class Main {
         System.out.println(count);
     }
 
-    private static void dfs(int x, int y) {
+    private static void dfs(int x, int y, char direction) {
         visited[x][y] = true;
 
-        int nx = x + 0;
-        int ny = y + 1;
+        int nx = x;
+        int ny = y;
 
-        if (ny >= 0 && ny < m && arr[nx][ny] == '-' && !visited[nx][ny]) {
-            dfs(nx, ny);
+        // 방향에 따라 이동
+        if (direction == '-') {
+            ny = y + 1;
+        } else if (direction == '|') {
+            nx = x + 1;
         }
-    }
 
-    private static void dfs1(int x, int y) {
-        visited[x][y] = true;
-
-        int nx = x + 1;
-        int ny = y + 0;
-
-        if (nx >= 0 && nx < n && arr[nx][ny] == '|' && !visited[nx][ny]) {
-            dfs1(nx, ny);
+        // 범위 체크 및 재귀 호출
+        if (nx >= 0 && nx < n && ny >= 0 && ny < m && arr[nx][ny] == direction && !visited[nx][ny]) {
+            dfs(nx, ny, direction);
         }
     }
 }
