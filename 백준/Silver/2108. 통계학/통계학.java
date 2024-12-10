@@ -8,47 +8,63 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
 
+        // 데이터 입력 및 초기화
+        int[] numbers = new int[n];
+        Map<Integer, Integer> frequencyMap = new HashMap<>();
         double total = 0;
-        Map<Integer, Integer> countMap = new HashMap<>();
 
-        int[] arr = new int[n];
         for (int i = 0; i < n; i++) {
-            StringTokenizer st = new StringTokenizer(br.readLine());
-            int input = Integer.parseInt(st.nextToken());
-            arr[i] = input;
-            total += input;
-            countMap.put(input, countMap.getOrDefault(input, 0) + 1);
+            int num = Integer.parseInt(br.readLine());
+            numbers[i] = num;
+            total += num;
+            frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1);
         }
 
-        Arrays.sort(arr);
-        int minIndex = (0 + arr.length - 1) / 2;
+        // 데이터 정렬
+        Arrays.sort(numbers);
 
-        // 출력값
-        StringBuilder sb = new StringBuilder();
-        sb.append((int)Math.round(total / n)).append("\n");
-        sb.append(arr[minIndex]).append("\n");
-        sb.append(findFrequence(countMap)).append("\n");
-        sb.append(arr[arr.length - 1] - arr[0]).append("\n");
+        // 결과 계산
+        int mean = calculateMean(total, n);
+        int median = calculateMedian(numbers);
+        int mode = calculateMode(frequencyMap);
+        int range = calculateRange(numbers);
 
-        System.out.println(sb);
+        // 결과 출력
+        printResults(mean, median, mode, range);
     }
 
-    private static int findFrequence(Map<Integer, Integer> countMap) {
-        int max = Collections.max(countMap.values()); // 가장 빈번하게 호출되는 값
+    private static int calculateMean(double total, int n) {
+        return (int) Math.round(total / n);
+    }
 
-        List<Integer> list = new ArrayList<>();
-        for (Map.Entry<Integer, Integer> entry : countMap.entrySet()) {
-            if (entry.getValue() == max) {
-                list.add(entry.getKey());
+    private static int calculateMedian(int[] numbers) {
+        return numbers[numbers.length / 2];
+    }
+
+    private static int calculateMode(Map<Integer, Integer> frequencyMap) {
+        int maxFrequency = Collections.max(frequencyMap.values());
+        List<Integer> candidates = new ArrayList<>();
+
+        for (Map.Entry<Integer, Integer> entry : frequencyMap.entrySet()) {
+            if (entry.getValue() == maxFrequency) {
+                candidates.add(entry.getKey());
             }
         }
 
-        Collections.sort(list);
+        Collections.sort(candidates);
+        return candidates.size() == 1 ? candidates.get(0) : candidates.get(1);
+    }
 
-        if (list.size() == 1) {
-            return list.get(0);
-        } else {
-            return list.get(1);
-        }
+    private static int calculateRange(int[] numbers) {
+        return numbers[numbers.length - 1] - numbers[0];
+    }
+
+    private static void printResults(int mean, int median, int mode, int range) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(mean).append("\n");
+        sb.append(median).append("\n");
+        sb.append(mode).append("\n");
+        sb.append(range).append("\n");
+        System.out.println(sb);
     }
 }
