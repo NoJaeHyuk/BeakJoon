@@ -27,6 +27,11 @@ public class Main {
 
         while (start < end) {
             int sum = arr[start] + arr[end];
+            
+            if(sum == 0) {
+                System.out.println(arr[start] + " " + arr[end]);
+                return;
+            }
 
             if (Math.abs(sum) < Math.abs(target)) {
                 target = sum;
